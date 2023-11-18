@@ -1,6 +1,7 @@
 const fs = require("fs/promises");
 const path = require("path");
-const shortid = require("shortid");
+const { randomUUID } = require("crypto");
+const { pathToFileURL } = require("url");
 
 const contactsPath = path.join(__dirname, "/db/contacts.json");
 
@@ -29,7 +30,7 @@ async function removeContact(contactId) {
 async function addContact(data) {
   const contacts = await listContacts();
   const newContact = {
-    id: shortid.generate(),
+    id: randomUUID(),
     ...data,
   };
   contacts.push(newContact);
